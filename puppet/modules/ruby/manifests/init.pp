@@ -114,9 +114,13 @@ class ruby {
   ## create template ruby app
   ## -----------------------------
   exec { 'create_template_rails_app':
-    command => "/usr/bin/sudo /bin/su vagrant -c '/usr/local/bin/rails new patient_records'",
+    command => "/usr/bin/sudo /bin/su vagrant -c '/usr/local/bin/rails new patient_card'",
     cwd     => '/home/vagrant',
-    creates => '/home/vagrant/patient_records/README.rdoc',
+    creates => '/home/vagrant/patient_card/README.rdoc',
+    timeout => '0',
+  }->
+  exec { 'move_template_app_to_opt':
+    command => "/usr/bin/sudo /bin/mv /home/vagrant/patient_card /opt",
     timeout => '0',
   }->
 
@@ -124,14 +128,14 @@ class ruby {
   ## create upstart config
   ## ------------------------------ 
   exec {'set_basic_upstart_config':
-    command => "/usr/bin/sudo /bin/cp /vagrant/puppet/modules/ruby/files/patient_records.conf /etc/init/",
+    command => "/usr/bin/sudo /bin/cp /vagrant/puppet/modules/ruby/files/patient_card.conf /etc/init/",
   }->
   exec {'chmod_app_upstart_config':
-    command => "/usr/bin/sudo /bin/chmod ugo-x /etc/init/patient_records.conf",
+    command => "/usr/bin/sudo /bin/chmod ugo-x /etc/init/patient_card.conf",
   }->
   ## make sure app is really started
   exec {'upstart_start':
-    command => "/usr/bin/sudo /sbin/start patient_records",
+    command => "/usr/bin/sudo /sbin/start patient_card",
   }->
  
   ### ------------------------------
