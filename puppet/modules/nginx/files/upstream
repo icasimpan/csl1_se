@@ -1,0 +1,5 @@
+  ## configure ruby servers served on port 3000 so it 
+  ## becomes accessible to nginx port 80
+  upstream upstream_server {
+    server 127.0.0.1:3000;
+  }
