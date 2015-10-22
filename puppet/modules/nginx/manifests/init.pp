@@ -2,6 +2,7 @@
 class nginx {
   exec { 'apt-get update':
     path => '/usr/bin',
+    timeout => '0',
   }
   # make sure default htmldoc for nginx is present
   file { '/var/www':
