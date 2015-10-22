@@ -106,9 +106,6 @@ class ruby {
   exec { 'add_nodejs_aptrepo':
     command => "/usr/bin/sudo /usr/bin/add-apt-repository ppa:chris-lea/node.js",
   }->
-  exec { 'apt-get update':
-    path => '/usr/bin',
-  }->
   package { 'nodejs':
     ensure => 'present',
   }->
