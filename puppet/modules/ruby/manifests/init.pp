@@ -123,6 +123,10 @@ class ruby {
     command => "/usr/bin/sudo /bin/mv /home/vagrant/patient_card /opt",
     timeout => '0',
   }->
+  ## use unicorn instead of default webrick to serve http via port 3000
+  exec { 'copy_unicorn_config':
+    command => "/bin/cp /vagrant/puppet/modules/ruby/files/unicorn.rb /opt/patient_card/config",
+  }->
 
   ## ------------------------------
   ## create upstart config
