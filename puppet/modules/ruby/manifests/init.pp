@@ -113,15 +113,9 @@ class ruby {
   ## -----------------------------
   ## create template ruby app
   ## -----------------------------
-  exec { 'create_template_rails_app':
-    command => "/usr/bin/sudo /bin/su vagrant -c '/usr/local/bin/rails new patient_card'",
-    cwd     => '/home/vagrant',
-    creates => '/home/vagrant/patient_card/README.rdoc',
-    timeout => '0',
-  }->
-  exec { 'move_template_app_to_opt':
-    command => "/usr/bin/sudo /bin/mv /home/vagrant/patient_card /opt",
-    timeout => '0',
+  file { '/opt/patient_card':
+    ensure => 'link',
+    target => '/vagrant/patient_card',
   }->
 
   ## ------------------------------
